@@ -36,11 +36,10 @@ class BasicChart(RenderEngine):
         self.local_cfg, self.notebook_cfg = self._produce_assets_cfg()
 
     def _switch_pos(self, pos: str) -> int:
-        if pos == "upLeft":
-            return 1
-        elif pos == "upRight":
-            return 2
-        elif pos == "downLeft":
-            return 3
-        elif pos == "downRight":
-            return 4
+        pos_map = {
+            "upLeft": 1,
+            "upRight": 2,
+            "downLeft": 3,
+            "downRight": 4
+        }
+        return pos_map.get(pos, 0)

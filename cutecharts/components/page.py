@@ -11,7 +11,7 @@ class Page(RenderEngine):
         super().__init__()
         self._charts: list = []
         self.assets_host = assets_host or CurrentConfig.ASSETS_HOST
-        self.assets_deps = []
+        self.assets_deps = set()
 
     def __iter__(self):
         for chart in self._charts:
@@ -22,9 +22,7 @@ class Page(RenderEngine):
 
     def add(self, *charts):
         for c in charts:
-            for dep in c.assets_deps:
-                if dep not in self.assets_deps:
-                    self.assets_deps.append(dep)
+            self.assets_deps.update(c.assets_deps)
             self._charts.append(c)
 
     def before_render(self):
